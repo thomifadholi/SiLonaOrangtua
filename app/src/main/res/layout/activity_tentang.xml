@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/anak"
+    tools:context=".Tentang">
+
+    <ImageView
+        android:id="@+id/silona"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="10dp"
+        android:gravity="center_horizontal"
+        android:src="@drawable/ic_info" />
+
+    <TextView
+        android:id="@+id/login_title"
+        android:layout_width="265dp"
+        android:layout_height="50dp"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="65dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="10dp"
+        android:gravity="center_horizontal"
+        android:text="Tentang SILONA"
+        android:textColor="#fff"
+        android:textSize="30sp"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:id="@+id/texttentang"
+        android:layout_width="match_parent"
+        android:layout_height="443dp"
+        android:layout_below="@+id/login_title">
+
+
+        <TextView
+            android:id="@+id/isitext"
+            android:layout_width="match_parent"
+            android:layout_height="423dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginBottom="10dp"
+            android:gravity="center_horizontal"
+            android:text=""
+            android:textColor="#fff"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+
+    </LinearLayout>
+
+    <ImageButton
+        android:id="@+id/bantuan"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_below="@+id/texttentang"
+        android:layout_marginLeft="70dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/button_background"
+        android:onClick="goToBeranda"
+        android:src="@drawable/ic_arrow_back_black_24dp" />
+
+
+
+
+</RelativeLayout>

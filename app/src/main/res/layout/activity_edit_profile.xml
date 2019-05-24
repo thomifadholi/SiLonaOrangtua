@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/colorPrimaryDark"
+    tools:context=".EditProfile">
+
+    <TextView
+        android:background="@drawable/bar_atas"
+        android:id="@+id/login_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:text="Edit Profile"
+        android:textColor="#fff"
+        android:textSize="30sp"
+         />
+
+    <RelativeLayout
+        android:layout_below="@+id/login_title"
+        android:id="@+id/te_profil"
+        android:layout_marginTop="40dp"
+        android:layout_width="match_parent"
+        android:layout_height="200dp">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/ep_profil"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@drawable/defaultprofile"
+            android:onClick="selectimage"
+            app:civ_border_color="#FFFFFF"
+            app:civ_border_width="2dp" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:src="@drawable/edit"
+            android:id="@+id/floatingActionButtonProfile"
+            android:onClick="selectimage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="6dp"
+            android:layout_marginEnd="76dp" />
+
+
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:id="@+id/Nama"
+        android:layout_marginTop="50dp"
+        android:layout_below="@+id/te_profil"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bar_atas"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/te_nama"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:gravity="left"
+            android:layout_gravity="center"
+            android:text="Nama Lengkap : "
+            android:textSize="24dp"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="#ffff" />
+
+
+        <TextView
+            android:id="@+id/ep_nama"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:gravity="left"
+            android:layout_gravity="center"
+            android:textSize="20dp"
+            android:text="-"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="#ffff" />
+    </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/te_email"
+            android:layout_marginTop="30dp"
+            android:layout_below="@+id/Nama"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bar_atas"
+            android:orientation="vertical" >
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:gravity="left"
+                android:layout_gravity="center"
+                android:text="Email : "
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="#ffff"
+                android:textSize="24dp" />
+
+            <TextView
+                android:id="@+id/ep_email"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:gravity="left"
+                android:layout_gravity="center"
+                android:textSize="20dp"
+                android:text="-"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="#ffff" />
+        </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/te_sandi"
+                android:layout_marginTop="30dp"
+                android:layout_below="@+id/te_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bar_atas"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:gravity="left"
+                    android:layout_gravity="center"
+                    android:text="Kata Sandi : "
+                    android:textSize="24dp"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="#ffff" />
+
+                <TextView
+                    android:id="@+id/ep_sandi"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:gravity="left"
+                    android:layout_gravity="center"
+                    android:textSize="20dp"
+                    android:inputType="textPassword"
+                    android:text="-"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="#ffff" />
+
+
+            </LinearLayout>
+
+
+</RelativeLayout>
