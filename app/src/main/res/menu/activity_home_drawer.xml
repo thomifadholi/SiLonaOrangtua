@@ -19,8 +19,13 @@
             />
         <item
             android:id="@+id/d_riwayat"
-            android:title="Daftar Riwayat"
+            android:title="Daftar Riwayat Lokasi"
             android:icon="@drawable/riwayat"/>
+
+        <item
+            android:id="@+id/b_bantuan"
+            android:title="Bantuan"
+            android:icon="@drawable/ic_live_help"/>
 
         <item
             android:id="@+id/keluar"

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#263238</color>
-    <color name="colorPrimaryDark">#2f3341</color>
+    <color name="colorPrimaryDark">#7873b9</color>
     <color name="colorAccent">#ffff</color>
-    <color name="colorHint">#ffffff</color>
+    <color name="colorHint">#7873b9</color>
     <color name="colorSplash">#2e3240</color>
     <color name="colorVisible">#ffff</color>
 
@@ -20,7 +20,9 @@
 
     <color name="dividerColor">#013243</color>
 
+    <color name="light">#7873b9</color>
     <color name="colornav">#444546</color>
+    <color name="black">#000</color>
     <color name="white">#FFF</color>
     <color name="iron">#808db8</color>
     <color name="primary">#5c6480</color>

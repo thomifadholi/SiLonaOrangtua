@@ -33,7 +33,7 @@ import java.util.Locale;
 
 public class LiveMapsActivity extends AppCompatActivity implements OnMapReadyCallback{
 
-    String latitude,longitude,nama,userid,date;
+    String latitude,longitude,nama,userid,date,alamat,kota,state,country,postalCode,knownName;
     DatabaseReference reference;
 
     GoogleMap mMap;
@@ -42,6 +42,11 @@ public class LiveMapsActivity extends AppCompatActivity implements OnMapReadyCal
     LatLng friendLatLng;
     MarkerOptions myOptions;
     Marker marker;
+    double lat,lon;
+
+    Geocoder geocoder;
+    List<Address> addressList;
+
 
 
     @Override
@@ -58,6 +63,9 @@ public class LiveMapsActivity extends AppCompatActivity implements OnMapReadyCal
             nama = intent.getStringExtra("nama");
             userid = intent.getStringExtra("userid");
             date = intent.getStringExtra("date");
+
+            lat = Double.parseDouble(latitude);
+            lon = Double.parseDouble(longitude);
         }
 
 
@@ -67,6 +75,15 @@ public class LiveMapsActivity extends AppCompatActivity implements OnMapReadyCal
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
+        geocoder = new Geocoder(this,Locale.getDefault());
+        try {
+            addressList = geocoder.getFromLocation(lat,lon,1);
+
+            alamat  = addressList.get(0).getAddressLine(0);
+            kota    = addressList.get(0).getLocality();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
 
         reference.addChildEventListener(new ChildEventListener() {
@@ -151,6 +168,7 @@ public class LiveMapsActivity extends AppCompatActivity implements OnMapReadyCal
                 TextView nameTxt = row.findViewById(R.id.snippetName);
                 TextView dateTxt = row.findViewById(R.id.snippetDate);
                 TextView lokasiTxt = row.findViewById(R.id.snippetlokasi);
+                TextView snippetAlamat = row.findViewById(R.id.snippetAlamat);
 
                 lokasiTxt.setText(lokasiTxt.getText().toString() + latitude +" , " + longitude);
 
@@ -164,6 +182,10 @@ public class LiveMapsActivity extends AppCompatActivity implements OnMapReadyCal
                     dateTxt.setText(dateTxt.getText().toString() + myDate);
                 }
 
+                if (alamat != null || alamat.length() > 0){
+                    snippetAlamat.setText(alamat);
+                }
+
                 return row;
             }
         });
@@ -173,7 +195,7 @@ public class LiveMapsActivity extends AppCompatActivity implements OnMapReadyCal
 
         optionsnew.position(friendLatLng);
         optionsnew.title(nama);
-        optionsnew.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
+        optionsnew.icon(BitmapDescriptorFactory.fromResource(R.drawable.marker));
 
 
         if(marker == null)

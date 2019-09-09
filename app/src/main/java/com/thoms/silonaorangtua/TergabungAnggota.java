@@ -1,5 +1,6 @@
 package com.thoms.silonaorangtua;
 
+import android.graphics.Color;
 import android.os.Handler;
 import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
@@ -21,6 +22,8 @@ import com.thoms.silonaorangtua.Model.AnakDaftar;
 
 import java.util.ArrayList;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
+
 public class TergabungAnggota extends AppCompatActivity {
 
     RecyclerView recyclerView;
@@ -32,6 +35,7 @@ public class TergabungAnggota extends AppCompatActivity {
     ArrayList<AnakDaftar> nameList;
     FirebaseUser firebaseUser;
     AnakDaftar anakDaftar;
+    private SweetAlertDialog pDialogLoading,pDialodInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +50,11 @@ public class TergabungAnggota extends AppCompatActivity {
         nameList = new ArrayList<>();
 
         recyclerView.setLayoutManager(layoutManager);
+        pDialogLoading = new SweetAlertDialog(TergabungAnggota.this, SweetAlertDialog.PROGRESS_TYPE);
+        pDialogLoading.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+        pDialogLoading.setTitleText("Loading..");
+        pDialogLoading.setCancelable(false);
+        pDialogLoading.show();
 
         auth = FirebaseAuth.getInstance();
         firebaseUser = auth.getCurrentUser();
@@ -77,6 +86,7 @@ public class TergabungAnggota extends AppCompatActivity {
                             }
                         });
                     }
+                    pDialogLoading.dismiss();
 
                     Handler handler = new Handler();
                     handler.postDelayed(new Runnable() {
@@ -91,12 +101,14 @@ public class TergabungAnggota extends AppCompatActivity {
                 else {
                     Toast.makeText(getApplicationContext(),"Anda Belum Bergabung Dengan Daftar Pengguna Mana Pun!",Toast.LENGTH_SHORT).show();
                     recyclerView.setAdapter(null);
+                    pDialogLoading.dismiss();
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 Toast.makeText(getApplicationContext(),databaseError.toString(),Toast.LENGTH_LONG).show();
+                pDialogLoading.dismiss();
             }
         });
 

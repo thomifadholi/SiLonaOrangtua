@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/anak"
+    android:background="@drawable/background_ortu"
     tools:context=".NamaPengguna">
 
     <TextView
@@ -59,8 +59,9 @@
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
                 android:hint="Nama"
+                android:textColorHint="@color/white"
                 android:textColor="@android:color/white"
-                android:textSize="14dp" />
+                android:textSize="15dp" />
 
 
         </android.support.design.widget.TextInputLayout>
@@ -79,10 +80,10 @@
         android:layout_marginLeft="40dp"
         android:layout_marginRight="40dp"
         android:layout_below="@id/form_nama"
-        android:background="@drawable/btn_masuk_background"
+        android:background="@drawable/btn_daftar_background"
         android:onClick="BuatAkun"
         android:text="Daftar"
-        android:textColor="@android:color/white" />
+        android:textColor="@color/light" />
 
 
 

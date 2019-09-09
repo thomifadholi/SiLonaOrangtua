@@ -184,16 +184,25 @@ public class Home extends AppCompatActivity
             Intent myIntent = new Intent(Home.this, GabungAnggota.class);
             startActivity(myIntent);
 
+
         } else if (id == R.id.t_gabung) {
             Intent myIntent = new Intent(Home.this, TergabungAnggota.class);
             startActivity(myIntent);
+
 
         } else if (id == R.id.d_riwayat) {
             Intent myIntent = new Intent(Home.this, Riwayat.class);
             startActivity(myIntent);
 
+
+        } else if (id == R.id.b_bantuan) {
+                Intent myIntent = new Intent(Home.this, Bantuan_Dalam.class);
+                startActivity(myIntent);
+
+
         } else if (id == R.id.keluar) {
             logout();
+            finish();
 
         }
 

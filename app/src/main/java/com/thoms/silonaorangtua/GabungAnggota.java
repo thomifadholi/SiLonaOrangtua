@@ -41,7 +41,6 @@ public class GabungAnggota extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gabung_anggota);
         editText = (EditText)findViewById(R.id.input_nama);
-        editText.setText("anak_");
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
         reference = FirebaseDatabase.getInstance().getReference().child("Informasi_Anak");

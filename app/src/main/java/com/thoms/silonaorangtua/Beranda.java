@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -17,6 +18,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.karan.churi.PermissionManager.PermissionManager;
+import com.thoms.silonaorangtua.Model.SharedVariable;
 
 import java.util.ArrayList;
 
@@ -30,6 +32,7 @@ public class Beranda extends AppCompatActivity {
     PermissionManager manager;
     FirebaseAuth auth;
     FirebaseUser user;
+    TextView lupaPassword;
 
 
     @Override
@@ -41,22 +44,23 @@ public class Beranda extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_beranda);
+        Email = (EditText)findViewById(R.id.edtEmail);
+        Password = (EditText)findViewById(R.id.edtPassword);
+        lupaPassword = findViewById(R.id.lupaPassword);
 
-        CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
-                .setDefaultFontPath("fonts/GothamBook.ttf")
+       /* CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
+                .setDefaultFontPath("fonts/gothambook.ttf")
                 .setFontAttrId(R.attr.fontPath)
                 .build());
-
-
+*/
 
 
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
 
         if (user == null){
-            setContentView(R.layout.activity_beranda);
-            Email = (EditText)findViewById(R.id.edtEmail);
-            Password = (EditText)findViewById(R.id.edtPassword);
+
 
             manager = new PermissionManager() {};
             manager.checkAndRequestPermissions(this);
@@ -67,27 +71,35 @@ public class Beranda extends AppCompatActivity {
             finish();
         }
 
-    }
+        lupaPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent myIntent = new Intent(Beranda.this,LupaPasswordActivity.class);
+                startActivity(myIntent);
+            }
+        });
 
-    public void goToPilihan (View v){
-        Intent myIntent = new Intent (Beranda.this, Pilihan.class);
-        startActivity(myIntent);
-        finish();
-        return;
     }
 
     public void goToTentang (View v){
         Intent myIntent = new Intent (Beranda.this, Tentang.class);
         startActivity(myIntent);
         finish();
-        return;
+
     }
 
     public void goToBantuan (View v){
         Intent myIntent = new Intent (Beranda.this, Bantuan.class);
         startActivity(myIntent);
         finish();
-        return;
+
+    }
+
+    public void goToDaftar (View v){
+        Intent myIntent = new Intent (Beranda.this, DaftarOrangtua.class);
+        startActivity(myIntent);
+        finish();
+
     }
 
 
@@ -144,6 +156,7 @@ public class Beranda extends AppCompatActivity {
 
         String email = Email.getText().toString();
         String password = Password.getText().toString();
+        SharedVariable.tempPassword = password;
 
         if (email.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             Email.setError("Masukkan Email dengan Benar");

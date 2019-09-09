@@ -21,6 +21,13 @@ public class Bantuan extends AppCompatActivity {
         return;
     }
 
+    public void goToTutorialPendaftaran (View v){
+        Intent myIntent = new Intent (Bantuan.this, TutorialPendaftaran.class);
+        startActivity(myIntent);
+        finish();
+        return;
+    }
+
     public void onBackPressed(){
         Intent intent = new Intent(Bantuan.this, Beranda.class);
         startActivity(intent);

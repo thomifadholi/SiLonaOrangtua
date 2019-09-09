@@ -35,13 +35,14 @@ public class DaftarOrangtua extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_daftar_orangtua);
         dialog = new ProgressDialog(this);
 
-        CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
-                .setDefaultFontPath("fonts/GothamBook.ttf")
-                .setFontAttrId(R.attr.fontPath)
-                .build());
-        setContentView(R.layout.activity_daftar_orangtua);
+//        CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
+//                .setDefaultFontPath("fonts/GothamBook.ttf")
+//                .setFontAttrId(R.attr.fontPath)
+//                .build());
+
 
         ed_nama = (EditText)findViewById(R.id.input_nama);
         ed_email = (EditText)findViewById(R.id.input_email);
@@ -135,6 +136,12 @@ public class DaftarOrangtua extends AppCompatActivity {
 
 
         return valid;
+    }
+
+    public void onBackPressed(){
+        Intent intent = new Intent(DaftarOrangtua.this, Beranda.class);
+        startActivity(intent);
+        finish();
     }
 
     public void gotoMasuk(View v)

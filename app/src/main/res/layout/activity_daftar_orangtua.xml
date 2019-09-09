@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/anak"
+    android:background="@drawable/background_ortu"
     tools:context=".DaftarOrangtua">
 
     <TextView
@@ -41,6 +41,7 @@
             android:layout_height="58dp"
             android:layout_marginStart="0dp"
             android:layout_marginTop="15dp"
+            android:textColorHint="@color/white"
             android:layout_marginBottom="439dp">
 
             <EditText
@@ -51,7 +52,7 @@
                 android:layout_alignParentTop="true"
                 android:hint="Nama Lengkap"
                 android:textColor="@android:color/white"
-                android:textSize="14dp" />
+                android:textSize="18dp" />
 
 
         </android.support.design.widget.TextInputLayout>
@@ -78,6 +79,7 @@
             android:id="@+id/form_email"
             android:layout_width="match_parent"
             android:layout_height="54dp"
+            android:textColorHint="@color/white"
             android:layout_marginStart="0dp"
             android:layout_marginTop="15dp"
             android:layout_marginBottom="439dp">
@@ -90,7 +92,7 @@
                 android:layout_alignParentTop="true"
                 android:hint="Masukkan Email"
                 android:textColor="@android:color/white"
-                android:textSize="14dp" />
+                android:textSize="18dp" />
 
 
         </android.support.design.widget.TextInputLayout>
@@ -117,12 +119,13 @@
         <android.support.design.widget.TextInputLayout
             android:id="@+id/form_password"
             android:layout_width="match_parent"
+            android:textColorHint="@color/white"
             android:layout_height="wrap_content"
             app:passwordToggleDrawable="@drawable/icon_selector"
             app:passwordToggleEnabled="true"
             app:passwordToggleTint="@color/colorVisible"
-
             >
+
 
             <EditText
                 android:id="@+id/input_password"
@@ -132,7 +135,7 @@
                 android:inputType="textPassword"
                 android:textColor="@android:color/white"
                 android:textColorHint="@android:color/white"
-                android:textSize="14dp"
+                android:textSize="18dp"
 
                 />
         </android.support.design.widget.TextInputLayout>
@@ -175,10 +178,10 @@
         android:layout_marginTop="50dp"
         android:layout_marginRight="40dp"
         android:layout_marginBottom="-80dp"
-        android:background="@drawable/btn_masuk_background"
+        android:background="@drawable/btn_daftar_background"
         android:onClick="gotoMasuk"
         android:text="Masuk"
-        android:textColor="@android:color/white" />
+        android:textColor="@color/light" />
 
 
 

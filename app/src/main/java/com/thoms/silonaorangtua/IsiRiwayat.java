@@ -1,6 +1,8 @@
 package com.thoms.silonaorangtua;
 
 import android.content.Intent;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -28,8 +30,13 @@ import com.thoms.silonaorangtua.Adapters.DetailRiwayat;
 import com.thoms.silonaorangtua.Model.AnakDaftar;
 import com.thoms.silonaorangtua.Model.RiwayatAnak;
 
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class IsiRiwayat extends AppCompatActivity {
 
@@ -38,11 +45,13 @@ public class IsiRiwayat extends AppCompatActivity {
     FirebaseUser user;
     TextView lokasi, waktu;
     AnakDaftar anakDaftar;
-    String userid, nama, date;
+    String userid, nama, date,alamatTerakir,kota;
     LocationRequest request;
     RiwayatAnak riwayatAnak;
     ArrayList<DetailRiwayat> listriwayat;
-
+    Geocoder geocoder;
+    List<Address> addressList;
+    double lat,lon;
 
 
     @Override
@@ -52,13 +61,11 @@ public class IsiRiwayat extends AppCompatActivity {
 
         Intent intent = getIntent();
 
-
-
         if(intent != null) {
             nama = intent.getStringExtra("nama");
             userid = intent.getStringExtra("userid");
         }
-
+        geocoder = new Geocoder(this, Locale.getDefault());
 
 
         auth = FirebaseAuth.getInstance();
@@ -80,11 +87,25 @@ public class IsiRiwayat extends AppCompatActivity {
                 String waktu = dataSnapshot.child("lasttime").getValue(String.class);
                 String lokasi = dataSnapshot.child("latitude").getValue(String.class)+" "+dataSnapshot.child("longitude").getValue(String.class);
 
-//                Toast.makeText(getApplicationContext(), waktu,Toast.LENGTH_SHORT).show();
-//                Toast.makeText(getApplicationContext(), lokasi,Toast.LENGTH_SHORT).show();
+                String latitude = (String) dataSnapshot.child("latitude").getValue();
+                String longitude = (String) dataSnapshot.child("longitude").getValue();
+
+
+                if (latitude.length() > 3){
+                    double lati = Double.parseDouble(latitude);
+                    double longi = Double.parseDouble(longitude);
+                    try {
+                        alamatTerakir = getAlamatByLokasi(lati,longi);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }else {
+                    alamatTerakir = "";
+                }
+
 //
                 TextView LokasiSenin = (TextView) findViewById(R.id.locSeninTxt);
-                LokasiSenin.setText(lokasi);
+                LokasiSenin.setText(lokasi+"\n"+alamatTerakir);
                 TextView WaktuSenin = (TextView) findViewById(R.id.timeSeninTxt);
                 WaktuSenin.setText(waktu);
             }
@@ -101,12 +122,28 @@ public class IsiRiwayat extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 String waktu = dataSnapshot.child("lasttime").getValue(String.class);
                 String lokasi = dataSnapshot.child("latitude").getValue(String.class)+" "+dataSnapshot.child("longitude").getValue(String.class);
+                String latitude = (String) dataSnapshot.child("latitude").getValue();
+                String longitude = (String) dataSnapshot.child("longitude").getValue();
+
+                if (latitude.length() > 3){
+                    double lati = Double.parseDouble(latitude);
+                    double longi = Double.parseDouble(longitude);
+                    try {
+                        alamatTerakir = getAlamatByLokasi(lati,longi);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }else {
+                    alamatTerakir = "";
+                }
+
+
 
 //                Toast.makeText(getApplicationContext(), waktu,Toast.LENGTH_SHORT).show();
 //                Toast.makeText(getApplicationContext(), lokasi,Toast.LENGTH_SHORT).show();
 //
                 TextView LokasiSelasa = (TextView) findViewById(R.id.locSelasaTxt);
-                LokasiSelasa.setText(lokasi);
+                LokasiSelasa.setText(lokasi+"\n"+alamatTerakir);
                 TextView WaktuSelasa = (TextView) findViewById(R.id.timeSelasaTxt);
                 WaktuSelasa.setText(waktu);
             }
@@ -125,11 +162,24 @@ public class IsiRiwayat extends AppCompatActivity {
                 String waktu = dataSnapshot.child("lasttime").getValue(String.class);
                 String lokasi = dataSnapshot.child("latitude").getValue(String.class)+" "+dataSnapshot.child("longitude").getValue(String.class);
 
+                String latitude = (String) dataSnapshot.child("latitude").getValue();
+                String longitude = (String) dataSnapshot.child("longitude").getValue();
+                if (latitude.length() > 3){
+                    double lati = Double.parseDouble(latitude);
+                    double longi = Double.parseDouble(longitude);
+                    try {
+                        alamatTerakir = getAlamatByLokasi(lati,longi);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }else {
+                    alamatTerakir = "";
+                }
 //                Toast.makeText(getApplicationContext(), waktu,Toast.LENGTH_SHORT).show();
 //                Toast.makeText(getApplicationContext(), lokasi,Toast.LENGTH_SHORT).show();
 //
                 TextView LokasiRabu = (TextView) findViewById(R.id.locRabuTxt);
-                LokasiRabu.setText(lokasi);
+                LokasiRabu.setText(lokasi+"\n"+alamatTerakir);
                 TextView WaktuRabu = (TextView) findViewById(R.id.timeRabuTxt);
                 WaktuRabu.setText(waktu);
             }
@@ -144,18 +194,29 @@ public class IsiRiwayat extends AppCompatActivity {
         kamis.child("Kamis").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String waktu = dataSnapshot.child("lasttime").getValue(String.class);
+                String lokasi = dataSnapshot.child("latitude").getValue(String.class)+" "+dataSnapshot.child("longitude").getValue(String.class);
 
-
-          //    String waktu = dataSnapshot.child("lasttime").child("lasttime").getValue(String.class);
-//              String lokasi = dataSnapshot.child("latitude").getValue(String.class)+" "+dataSnapshot.child("longitude").getValue(String.class);
-
+                String latitude = (String) dataSnapshot.child("latitude").getValue();
+                String longitude = (String) dataSnapshot.child("longitude").getValue();
+                if (latitude.length() > 3){
+                    double lati = Double.parseDouble(latitude);
+                    double longi = Double.parseDouble(longitude);
+                    try {
+                        alamatTerakir = getAlamatByLokasi(lati,longi);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }else {
+                    alamatTerakir = "";
+                }
 //                Toast.makeText(getApplicationContext(), waktu,Toast.LENGTH_SHORT).show();
 //                Toast.makeText(getApplicationContext(), lokasi,Toast.LENGTH_SHORT).show();
 //
-                TextView LokasiKamis = (TextView) findViewById(R.id.locKamisTxt);
-             //  LokasiKamis.setText(lokasi);
-                TextView WaktuKamis = (TextView) findViewById(R.id.timeKamisTxt);
-               // WaktuKamis.setText(waktu);
+                TextView LokasiRabu = (TextView) findViewById(R.id.locKamisTxt);
+                LokasiRabu.setText(lokasi+"\n"+alamatTerakir);
+                TextView WaktuRabu = (TextView) findViewById(R.id.timeKamisTxt);
+                WaktuRabu.setText(waktu);
             }
 
             @Override
@@ -168,16 +229,29 @@ public class IsiRiwayat extends AppCompatActivity {
         rabu.child("Jumat").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                String waktu = dataSnapshot.child("lasttime").getValue(String.class);
-             //   String lokasi = dataSnapshot.child("latitude").getValue(String.class)+" "+dataSnapshot.child("longitude").getValue(String.class);
+                String waktu = dataSnapshot.child("lasttime").getValue(String.class);
+                String lokasi = dataSnapshot.child("latitude").getValue(String.class)+" "+dataSnapshot.child("longitude").getValue(String.class);
 
+                String latitude = (String) dataSnapshot.child("latitude").getValue();
+                String longitude = (String) dataSnapshot.child("longitude").getValue();
+                if (latitude.length() > 3){
+                    double lati = Double.parseDouble(latitude);
+                    double longi = Double.parseDouble(longitude);
+                    try {
+                        alamatTerakir = getAlamatByLokasi(lati,longi);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }else {
+                    alamatTerakir = "";
+                }
 //                Toast.makeText(getApplicationContext(), waktu,Toast.LENGTH_SHORT).show();
 //                Toast.makeText(getApplicationContext(), lokasi,Toast.LENGTH_SHORT).show();
 //
-                TextView LokasiJumat = (TextView) findViewById(R.id.locJumatTxt);
-              //  LokasiJumat.setText(lokasi);
-                TextView WaktuJumat = (TextView) findViewById(R.id.timeJumatTxt);
-              //  WaktuJumat.setText(waktu);
+                TextView LokasiRabu = (TextView) findViewById(R.id.locJumatTxt);
+                LokasiRabu.setText(lokasi+"\n"+alamatTerakir);
+                TextView WaktuRabu = (TextView) findViewById(R.id.timeJumatTxt);
+                WaktuRabu.setText(waktu);
             }
 
             @Override
@@ -190,16 +264,29 @@ public class IsiRiwayat extends AppCompatActivity {
         rabu.child("Sabtu").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                String waktu = dataSnapshot.child("lasttime").getValue(String.class);
-//                String lokasi = dataSnapshot.child("latitude").getValue(String.class)+" "+dataSnapshot.child("longitude").getValue(String.class);
+                String waktu = dataSnapshot.child("lasttime").getValue(String.class);
+                String lokasi = dataSnapshot.child("latitude").getValue(String.class)+" "+dataSnapshot.child("longitude").getValue(String.class);
 
+                String latitude = (String) dataSnapshot.child("latitude").getValue();
+                String longitude = (String) dataSnapshot.child("longitude").getValue();
+                if (latitude.length() > 3){
+                    double lati = Double.parseDouble(latitude);
+                    double longi = Double.parseDouble(longitude);
+                    try {
+                        alamatTerakir = getAlamatByLokasi(lati,longi);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }else {
+                    alamatTerakir = "";
+                }
 //                Toast.makeText(getApplicationContext(), waktu,Toast.LENGTH_SHORT).show();
 //                Toast.makeText(getApplicationContext(), lokasi,Toast.LENGTH_SHORT).show();
 //
-                TextView LokasiSabtu = (TextView) findViewById(R.id.locSabtuTxt);
-              //  LokasiSabtu.setText(lokasi);
-                TextView WaktuSabtu = (TextView) findViewById(R.id.timeSabtuTxt);
-              //  WaktuSabtu.setText(waktu);
+                TextView LokasiRabu = (TextView) findViewById(R.id.locSabtuTxt);
+                LokasiRabu.setText(lokasi+"\n"+alamatTerakir);
+                TextView WaktuRabu = (TextView) findViewById(R.id.timeSabtuTxt);
+                WaktuRabu.setText(waktu);
             }
 
             @Override
@@ -215,13 +302,26 @@ public class IsiRiwayat extends AppCompatActivity {
                 String waktu = dataSnapshot.child("lasttime").getValue(String.class);
                 String lokasi = dataSnapshot.child("latitude").getValue(String.class)+" "+dataSnapshot.child("longitude").getValue(String.class);
 
+                String latitude = (String) dataSnapshot.child("latitude").getValue();
+                String longitude = (String) dataSnapshot.child("longitude").getValue();
+                if (latitude.length() > 3){
+                    double lati = Double.parseDouble(latitude);
+                    double longi = Double.parseDouble(longitude);
+                    try {
+                        alamatTerakir = getAlamatByLokasi(lati,longi);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }else {
+                    alamatTerakir = "";
+                }
 //                Toast.makeText(getApplicationContext(), waktu,Toast.LENGTH_SHORT).show();
 //                Toast.makeText(getApplicationContext(), lokasi,Toast.LENGTH_SHORT).show();
 //
-                TextView LokasiMinggu = (TextView) findViewById(R.id.locMingguTxt);
-                LokasiMinggu.setText(lokasi);
-                TextView WaktuMinggu = (TextView) findViewById(R.id.timeMingguTxt);
-                WaktuMinggu.setText(waktu);
+                TextView LokasiRabu = (TextView) findViewById(R.id.locMingguTxt);
+                LokasiRabu.setText(lokasi+"\n"+alamatTerakir);
+                TextView WaktuRabu = (TextView) findViewById(R.id.timeMingguTxt);
+                WaktuRabu.setText(waktu);
             }
 
             @Override
@@ -234,16 +334,115 @@ public class IsiRiwayat extends AppCompatActivity {
     }
 
 
+    private String getAlamatByLokasi(double lati,double longi) throws IOException {
+
+        String alamat = "";
+        addressList = geocoder.getFromLocation(lati,longi,1);
+        alamat =  addressList.get(0).getAddressLine(0);
+
+        return  alamat;
+    }
+
+
+
     public void rincianKamis(View v){
-        Intent myIntent = new Intent(IsiRiwayat.this,RincianRiwayat.class);
+        String hari        = "Kamis";
+        Intent myIntent = new Intent(IsiRiwayat.this,RiwayatMapsActivity.class);
+        myIntent.putExtra("idAnak",userid);
+        myIntent.putExtra("hari",hari);
         startActivity(myIntent);
     }
+
+    public void rincianSelasa(View v){
+        String hari        = "Selasa";
+        Intent myIntent = new Intent(IsiRiwayat.this,RiwayatMapsActivity.class);
+        myIntent.putExtra("idAnak",userid);
+        myIntent.putExtra("hari",hari);
+        startActivity(myIntent);
+    }
+
+    public void rincianSenin(View v){
+        String hari        = "Senin";
+        Intent myIntent = new Intent(IsiRiwayat.this,RiwayatMapsActivity.class);
+        myIntent.putExtra("idAnak",userid);
+        myIntent.putExtra("hari",hari);
+        startActivity(myIntent);
+    }
+
+    public void rincianRabu(View v){
+        String hari        = "Rabu";
+        Intent myIntent = new Intent(IsiRiwayat.this,RiwayatMapsActivity.class);
+        myIntent.putExtra("idAnak",userid);
+        myIntent.putExtra("hari",hari);
+        startActivity(myIntent);
+    }
+
+
+
     public void rincianJumat(View v){
-        Intent myIntent = new Intent(IsiRiwayat.this,RincianRiwayat.class);
+        String hari        = "Jumat";
+        Intent myIntent = new Intent(IsiRiwayat.this,RiwayatMapsActivity.class);
+        myIntent.putExtra("idAnak",userid);
+        myIntent.putExtra("hari",hari);
         startActivity(myIntent);
     }
     public void rincianSabtu(View v){
-        Intent myIntent = new Intent(IsiRiwayat.this,RincianRiwayat.class);
+        String hari        = "Sabtu";
+        Intent myIntent = new Intent(IsiRiwayat.this,RiwayatMapsActivity.class);
+        myIntent.putExtra("idAnak",userid);
+        myIntent.putExtra("hari",hari);
         startActivity(myIntent);
+    }
+
+    public void rincianMinggu(View v){
+        String hari        = "Minggu";
+        Intent myIntent = new Intent(IsiRiwayat.this,RiwayatMapsActivity.class);
+        myIntent.putExtra("idAnak",userid);
+        myIntent.putExtra("hari",hari);
+        startActivity(myIntent);
+    }
+
+
+    public void goToRiwayatMaps(View view) {
+        Calendar calendar = Calendar.getInstance();
+        Date dates = calendar.getTime();
+        String tanggal     = new SimpleDateFormat("yyyyMMdd").format(new Date());
+        String day         = new SimpleDateFormat("EEEE", Locale.ENGLISH).format(dates.getTime());
+        String hari        = convertDayToHari(day);
+
+        Intent myIntent = new Intent(IsiRiwayat.this,RiwayatMapsActivity.class);
+        myIntent.putExtra("idAnak",userid);
+        myIntent.putExtra("hari",hari);
+        startActivity(myIntent);
+    }
+
+    private String convertDayToHari(String day){
+        String hari = "";
+
+        switch (day){
+            case "Monday":
+                hari = "Senin";
+                break;
+            case "Tuesday":
+                hari = "Selasa";
+                break;
+            case "Wednesday":
+                hari = "Rabu";
+                break;
+            case "Thursday":
+                hari = "Kamis";
+                break;
+            case "Friday":
+                hari = "Jumat";
+                break;
+            case "Saturday":
+                hari = "Sabtu";
+                break;
+            case "Sunday":
+                hari = "Minggu";
+                break;
+        }
+
+        return hari;
     }
 }

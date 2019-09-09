@@ -4,19 +4,23 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/colorPrimaryDark"
     tools:context=".EditProfile">
 
-    <TextView
-        android:background="@drawable/bar_atas"
+    <RelativeLayout
         android:id="@+id/login_title"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAlignment="center"
-        android:text="Edit Profile"
-        android:textColor="#fff"
-        android:textSize="30sp"
-         />
+        android:layout_height="58dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="58dp"
+            android:gravity="center"
+            android:background="@color/light"
+            android:text="Edit Profil"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="30sp" />
+    </RelativeLayout>
 
     <RelativeLayout
         android:layout_below="@+id/login_title"
@@ -27,18 +31,20 @@
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/ep_profil"
+            app:civ_circle_background_color="@color/light"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:src="@drawable/defaultprofile"
             android:onClick="selectimage"
-            app:civ_border_color="#FFFFFF"
+            app:civ_border_color="@color/light"
             app:civ_border_width="2dp" />
 
         <android.support.design.widget.FloatingActionButton
-            android:src="@drawable/edit"
+            android:src="@drawable/edit_white"
             android:id="@+id/floatingActionButtonProfile"
             android:onClick="selectimage"
+            app:backgroundTint="@color/light"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
@@ -49,110 +55,94 @@
 
     </RelativeLayout>
 
-
-    <LinearLayout
-        android:id="@+id/Nama"
+    <ScrollView
         android:layout_marginTop="50dp"
-        android:layout_below="@+id/te_profil"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/bar_atas"
-        android:orientation="vertical" >
-
-        <TextView
-            android:id="@+id/te_nama"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:gravity="left"
-            android:layout_gravity="center"
-            android:text="Nama Lengkap : "
-            android:textSize="24dp"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="#ffff" />
-
-
-        <TextView
-            android:id="@+id/ep_nama"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:gravity="left"
-            android:layout_gravity="center"
-            android:textSize="20dp"
-            android:text="-"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="#ffff" />
-    </LinearLayout>
+        android:layout_below="@+id/te_profil">
 
         <LinearLayout
-            android:id="@+id/te_email"
-            android:layout_marginTop="30dp"
-            android:layout_below="@+id/Nama"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/bar_atas"
-            android:orientation="vertical" >
+            android:layout_below="@+id/te_profil"
+            android:background="@color/light"
+            android:orientation="vertical">
 
-            <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:gravity="left"
-                android:layout_gravity="center"
-                android:text="Email : "
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:textColor="#ffff"
-                android:textSize="24dp" />
 
-            <TextView
-                android:id="@+id/ep_email"
-                android:layout_width="fill_parent"
+            <LinearLayout
+                android:id="@+id/Nama"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:gravity="left"
-                android:layout_gravity="center"
-                android:textSize="20dp"
-                android:text="-"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:textColor="#ffff" />
-        </LinearLayout>
+                android:layout_below="@+id/te_profil"
+                android:layout_marginTop="40dp"
+                android:orientation="vertical">
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_marginTop="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColorHint="@color/white">
+
+                    <EditText
+                        android:id="@+id/etNama"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:hint="Nama Lengkap"
+                        android:textColor="@color/white"
+                        android:textSize="18dp" />
+
+                </android.support.design.widget.TextInputLayout>
+
+            </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/te_sandi"
-                android:layout_marginTop="30dp"
-                android:layout_below="@+id/te_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/bar_atas"
-                android:orientation="vertical" >
+                android:layout_below="@+id/te_profil"
+                android:layout_marginTop="30dp"
+                android:orientation="vertical">
 
-                <TextView
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:gravity="left"
-                    android:layout_gravity="center"
-                    android:text="Kata Sandi : "
-                    android:textSize="24dp"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:textColor="#ffff" />
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textColorHint="@color/white"
+                    app:passwordToggleDrawable="@drawable/icon_selector"
+                    app:passwordToggleTint="@color/white"
+                    app:passwordToggleEnabled="true">
 
-                <TextView
-                    android:id="@+id/ep_sandi"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:gravity="left"
-                    android:layout_gravity="center"
-                    android:textSize="20dp"
-                    android:inputType="textPassword"
-                    android:text="-"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:textColor="#ffff" />
+                    <EditText
+                        android:id="@+id/etPassword"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:hint="Kata Sandi"
+                        android:inputType="textPassword"
+                        android:textColor="@color/white"
+                        android:textSize="18dp" />
+
+                </android.support.design.widget.TextInputLayout>
 
 
             </LinearLayout>
 
+            <Button
+                android:id="@+id/btnUbah"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="50dp"
+                android:background="@drawable/btn_daftar_background"
+                android:text="Simpan Perubahan"
+                android:textColor="@color/light" />
+
+
+        </LinearLayout>
+    </ScrollView>
 
 </RelativeLayout>

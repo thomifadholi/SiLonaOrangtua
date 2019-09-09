@@ -3,7 +3,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:padding="10dp"
-    android:background="@color/colorSplash"
+    android:background="@color/light"
     android:layout_height="wrap_content">
 
 
@@ -35,14 +35,29 @@
         android:textColor="@android:color/white"
 
         />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:layout_marginTop="10dp"
+            android:textAllCaps="false"
+            android:id="@+id/snippetlokasi"
+            android:text="Lokasi Terakhir : "
+            android:textColor="@android:color/white"
+
+            />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="15sp"
             android:textStyle="bold"
             android:textAllCaps="false"
-            android:id="@+id/snippetlokasi"
-            android:text="Lokasi Terakhir : "
+            android:id="@+id/snippetAlamat"
+            android:layout_marginTop="10dp"
+            android:text="Alamat Terakhir : "
             android:textColor="@android:color/white"
 
             />

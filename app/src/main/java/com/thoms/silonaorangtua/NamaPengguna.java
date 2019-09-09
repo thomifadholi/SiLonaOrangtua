@@ -204,83 +204,12 @@ public class NamaPengguna extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(),databaseError.getMessage(),Toast.LENGTH_LONG).show();
                 }
             });
-        } else if  (type.equals("anak_")) {
-            // insert in user table
-
-            Query queryAnak = databaseReferenceAnak.orderByChild("username").equalTo(editText.getText().toString());
-            queryAnak.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    if (dataSnapshot.exists()) {
-                        Toast.makeText(getApplicationContext(), "Nama Pengguna Sudah Ada !", Toast.LENGTH_LONG).show();
-                        progressDialog.dismiss();
-                    } else if (resultUri!=null){
-                        auth.createUserWithEmailAndPassword(email, password)
-                                .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
-                                    @Override
-                                    public void onSuccess(AuthResult authResult) {
-                                        firebaseUser = auth.getCurrentUser();
-                                        curent_user_id = firebaseUser.getUid();
-
-                                        AnakDaftar anakDaftar = new AnakDaftar(nama,editText.getText().toString(),email,password,"na","na","false","na", imageUrl, firebaseUser.getUid());
-                                        databaseReferenceAnak.child(curent_user_id).setValue(anakDaftar)
-                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                    @Override
-                                                    public void onSuccess(Void aVoid) {
-                                                        final StorageReference sr = storageReference.child(firebaseUser.getUid() + ".jpg");
-                                                        sr.putFile(resultUri)
-                                                                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                                                                    @Override
-                                                                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                                                                        sr.getDownloadUrl()
-                                                                                .addOnSuccessListener(new OnSuccessListener<Uri>() {
-                                                                                    @Override
-                                                                                    public void onSuccess(Uri uri) {
-                                                                                        final String downloadURL = uri.toString();
-                                                                                        databaseReferenceAnak.child(firebaseUser.getUid()).child("imageUrl").setValue(downloadURL)
-                                                                                                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                                                                                    @Override
-                                                                                                    public void onComplete(@NonNull Task<Void> task) {
-                                                                                                        if (task.isSuccessful()){
-                                                                                                            progressDialog.dismiss();
-                                                                                                            Toast.makeText(getApplicationContext(), "Akun Anak Telah Dibuat", Toast.LENGTH_LONG).show();
-
-                                                                                                            finish();
-                                                                                                            Intent myIntent = new Intent(NamaPengguna.this, Pilihan.class);
-                                                                                                            startActivity(myIntent);
-                                                                                                        }
-
-                                                                                                    }
-
-                                                                                                });
-                                                                                    }
-                                                                                });
-                                                                    }
-                                                                });
-                                                    }
-                                                });
-
-                                    }
-                                });
-                    }
-                    else {
-                        Toast.makeText(getApplicationContext(), "Silahkan Pilih Gambar Profile", Toast.LENGTH_SHORT).show();
-                        progressDialog.dismiss();
-
-                    }
-                }
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-                    Toast.makeText(getApplicationContext(),databaseError.getMessage(),Toast.LENGTH_LONG).show();
-                }
-            });
-
-
         }
 
-
-
     }
-
-
+    public void onBackPressed(){
+        Intent intent = new Intent(NamaPengguna.this, DaftarOrangtua.class);
+        startActivity(intent);
+        finish();
+    }
 }

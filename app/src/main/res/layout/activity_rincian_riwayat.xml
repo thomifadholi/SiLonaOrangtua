@@ -4,36 +4,41 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/anak"
     tools:context=".RincianRiwayat">
 
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/judul"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true">
-
+        android:id="@+id/relaToolbar"
+        android:background="@color/colorPrimaryDark"
+        android:elevation="5dp">
 
         <TextView
-            android:id="@+id/login_title"
-            android:layout_width="match_parent"
+            android:id="@+id/tvOrderTitle"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:textColor="#fff"
-            android:text="Rincian RIwayat"
-            android:textSize="30sp"
-            android:textStyle="bold"/>
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="15dp"
+            android:text="Detail Riwayat"
+            android:textColor="@color/white"
+            android:textSize="22sp"
+            android:textStyle="bold" />
 
-    </android.support.v7.widget.Toolbar>
+        <ImageView
+            android:id="@+id/ivOrderHistory"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="15dp"
+            android:elevation="5dp"
+            app:srcCompat="@drawable/ic_assignment_ind_black_24dp"
+            tools:ignore="VectorDrawableCompat" />
+
+    </RelativeLayout>
 
 
-    <ListView
-        android:layout_below="@id/judul"
-        android:id="@+id/listView1"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-    </ListView>
 </RelativeLayout>

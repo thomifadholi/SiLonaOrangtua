@@ -53,48 +53,10 @@ public class RincianRiwayat extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rincian_riwayat);
 
-
         rincian = new Rincian();
-        listView = (ListView)findViewById(R.id.listView1);
         firebaseDatabase = FirebaseDatabase.getInstance();
 
-        list = new ArrayList<>();
-        adapter = new ArrayAdapter<String>(this,R.layout.list_rincian_riwayat, R.id.waktu_title, list);
 
-        databaseReference = FirebaseDatabase.getInstance().getReference().child("Informasi_anak").child("Jumat").child("lasttime");
-        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-               // GenericTypeIndicator<Map<String, String>> genericTypeIndicator = new GenericTypeIndicator<Map<String, String>>() {};
-                //Map<String, String> map = dataSnapshot.getValue(genericTypeIndicator );
-              //  ArrayList<Object> objectArrayList = new ArrayList<Object>(genericTypeIndicator);
-
-                Iterable<DataSnapshot> snapshotIterator = dataSnapshot.getChildren();
-                Iterator<DataSnapshot> iterator = snapshotIterator.iterator();
-
-                while (iterator.hasNext()) {
-                    DataSnapshot next = (DataSnapshot) iterator.next();
-
-                    String match = next.child("Waktu").getValue(String.class);
-                    String key = next.getKey();
-                    list.add(key);
-                    list.add(match);
-
-                }
-                listView.setAdapter(adapter);
-
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toast.makeText(getApplicationContext(), "Tidak Keluar" ,Toast.LENGTH_SHORT).show();
-            }
-        });
-
-
-      //  System.out.println(rincian.Waktu);
-       // Toast.makeText(getApplicationContext(), "keluar apa" ,Toast.LENGTH_SHORT).show();
 
 
     }
